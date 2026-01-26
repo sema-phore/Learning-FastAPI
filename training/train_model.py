@@ -40,17 +40,28 @@ ode = OrdinalEncoder(categories=[['Test Drive Car', 'Fourth & Above', 'Third', '
 kbin = KBinsDiscretizer(n_bins=10, encode='ordinal', strategy='uniform') # Discretization
 scaler = StandardScaler()
 
+
+#Handele Numeric val
+num_pipeline = Pipeline(steps=[
+    ("median_spi", median_spi),
+    ("scaler", StandardScaler())
+])
+
+torque_pipe = Pipeline(steps=[
+    ("mean_spi", mean_spi),
+    ("scaler", StandardScaler())
+])
+
 # Preprocession data using Column Transformer
 preprocessor = ColumnTransformer(
     [
-        ('median_spi', median_spi, ['km_driven', 'mileage_mpg', 'engine_cc', 'max_power_bhp','seats']),
-        ('mean_spi', mean_spi, ['torque_nm']),
-        ('scaler', scaler, ['mileage_mpg', 'engine_cc', 'torque_nm', 'max_power_bhp','seats']),
-        ('ohe', ohe, ['fuel', 'transmission', 'seller_type', 'company']),
-        ('ode', ode, ['owner']),
-        ('kbin', kbin, ['year'])
-    ],
-    remainder='passthrough')
+        ("other_num", num_pipeline,['km_driven', 'mileage_mpg', 'engine_cc', 'max_power_bhp','seats']),
+        ("torque", torque_pipe, ['torque_nm']),
+        ("ohe", ohe, ['fuel', 'transmission', 'seller_type', 'company']),
+        ("ode", ode, ['owner']),
+        ("kbin", kbin, ['year'])
+    ]
+)
 
 # Train of Random Forest Regressor
 rfReg = RandomForestRegressor(
