@@ -14,6 +14,7 @@ class Settings:
     JWT_ALGORITHM = 'HS256'
     REDIS_URL = os.getenv('REDIS_URL', 'redis://redis:6379')
     MODEL_PATH = 'app/models/model.pkl'
+    ENV = os.getenv('ENV', 'development')
 
     def validate(self):
         if not self.API_KEY:
