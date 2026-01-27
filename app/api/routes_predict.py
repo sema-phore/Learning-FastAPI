@@ -1,5 +1,5 @@
 # get user  input and give prediction
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 from app.core.dependencies import get_current_user, verify_api_key
 from app.services.model_service import predict_car_price

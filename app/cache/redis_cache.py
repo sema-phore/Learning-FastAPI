@@ -16,7 +16,7 @@ def get_cached_prediction(key: str):
         if value:
             return json.loads(value)
         return None
-    except redis.RedisError:
+    except (redis.RedisError, json.JSONDecodeError):
         return None
 
 
@@ -36,10 +36,10 @@ def get_cached_prediction(key: str):
     try:
         value = redis_client.get(key)
         return json.loads(value) if value else None
-    except redis.RedisError:
+    except (redis.RedisError, json.JSONDecodeError):
         return None
 
-except redis.RedisError: 
+except (redis.RedisError, json.JSONDecodeError): 
 This catches any Redis-related error, for example:
 - ConnectionError
 - TimeoutError
