@@ -207,6 +207,6 @@ marimo/_lsp/
 __marimo__/
 
 
-# Custom
+# Notebooks (experimentation only)
 notebooks/
-data/
+
