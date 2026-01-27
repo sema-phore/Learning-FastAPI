@@ -3,7 +3,7 @@ from fastapi.responses import JSONResponse
 
 def register_exception_handlers(app: FastAPI):
     # First access to app
-    @app.add_exception_handler(Exception)
+    @app.exception_handler(Exception)
     # Then handle the exception 
     async def unhandeled_excp_handler(request: Request, excp: Exception):
         return JSONResponse(
