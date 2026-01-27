@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, KBinsDiscretizer, StandardScaler
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.pipeline import Pipeline
 
 # Import local modules
@@ -61,27 +61,27 @@ preprocessor = ColumnTransformer(
 )
 
 # Train of Random Forest Regressor
-rfReg = RandomForestRegressor(
-    n_estimators=100,
-    max_depth= 13,
-    max_features= 0.5,
-    max_samples= 1.0,
-    bootstrap=True,
-    random_state= 42
+gbReg = GradientBoostingRegressor(
+    n_estimators=200,
+    learning_rate=0.05,
+    max_depth=5,
+    random_state=2,
+    alpha=0.1,
+    max_features=0.75
 )
 
 #Make pipeline of out model
-rf_model = Pipeline(
+gb_model = Pipeline(
     steps=[
         ('Preprocessing', preprocessor),
-        ('model', rfReg)
+        ('model', gbReg)
     ]
 )
 
 # Train the model
-rf_model.fit(X_train, y_train)
+gb_model.fit(X_train, y_train)
 
 
 # Store the model
 os.makedirs(MODEL_DIR, exist_ok=True)
-joblib.dump(rf_model, MODEL_PATH)
+joblib.dump(gb_model, MODEL_PATH)
