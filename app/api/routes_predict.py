@@ -26,4 +26,5 @@ class CarFeatures(BaseModel):
 def predict_price(car: CarFeatures, user=Depends(get_current_user), _ = Depends(verify_api_key)):
     # convert the car data from json to dict
     result = predict_car_price(car.model_dump())
-    return {"predicted_price": f"{result['prediction']:,.2f}"}
+    price = float(result['prediction'])
+    return {"predicted_price": f"{price:,.2f}"}

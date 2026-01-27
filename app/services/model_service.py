@@ -35,7 +35,7 @@ def predict_car_price(data: dict):
     
     #set the cache
     # Convert to dict format 
-    result = {'prediction': prediction}
+    result = {'prediction': float(prediction)}
     set_cached_prediction(cache_key, result)
 
     return result
