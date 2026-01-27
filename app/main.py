@@ -1,3 +1,4 @@
+import numpy as np
 from fastapi import FastAPI
 from prometheus_fastapi_instrumentator import Instrumentator
 from app.api import routes_auth, routes_predict
