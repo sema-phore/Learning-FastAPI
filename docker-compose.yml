@@ -11,9 +11,25 @@ services:
       - JWT_SECRET_KEY=SunFLOWer24
       - REDIS_URL=redis://redis:6379
       - ENV=development
+      - DB_PATH=app/db/users.db
+    volumes:
+      - db_data:/app/app/db      # persist SQLite database
     depends_on:
       - redis
       - prometheus
+    networks:
+      - backend
+
+  streamlit:
+    build: .
+    container_name: Streamlit-UI
+    command: streamlit run streamlit_app.py --server.port 8501 --server.address 0.0.0.0
+    ports:
+      - "8501:8501"
+    environment:
+      - API_BASE=http://api:8000
+    depends_on:
+      - api
     networks:
       - backend
 
@@ -44,6 +60,9 @@ services:
       - prometheus
     networks:
       - backend
+
+volumes:
+  db_data:
 
 networks:
   backend:

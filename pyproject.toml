@@ -1,10 +1,11 @@
 [project]
 name = "myproject"
 version = "0.1.0"
-description = "Add your description here"
+description = "Car Price Prediction API with FastAPI, SQLite, Redis, and Streamlit"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "bcrypt>=5.0.0",
     "fastapi==0.110.0",
     "joblib==1.5.3",
     "numpy==2.2.6",

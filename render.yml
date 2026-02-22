@@ -9,3 +9,17 @@ services:
     envVars:
       - key: MODEL_PATH
         value: app/models/model.joblib
+      - key: DB_PATH
+        value: app/db/users.db
+
+  - type: web
+    name: Car Price Prediction UI
+    env: python
+    plan: free
+    branch: main
+    autoDeploy: true
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run streamlit_app.py --server.port $PORT --server.address 0.0.0.0
+    envVars:
+      - key: API_BASE
+        value: https://learning-fastapi-dmyo.onrender.com
