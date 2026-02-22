@@ -1,7 +1,8 @@
 import streamlit as st
 import requests
+import os
+API_BASE = os.getenv("API_BASE", "http://localhost:8000")
 
-API_BASE = "http://localhost:8000"
 API_KEY = "semaphore"  # must match the API_KEY env var
 
 # ── Page config ───────────────────────────────────────────────────────────────
